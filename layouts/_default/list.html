@@ -1,0 +1,18 @@
+{{ define "main" }}
+<h1>{{ if eq .Kind "term" }}Tagged “{{ .Title }}”{{ else }}{{ .Title }}{{ end }}</h1>
+{{ .Content }}
+{{ range .Pages.GroupByDate "January 2006" }}
+  <h2 class="month">{{ .Key }}</h2>
+  <ul class="issue-list">
+    {{ range .Pages }}
+      <li>
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        {{ with .Params.summary }}<p>{{ . }}</p>{{ end }}
+      </li>
+    {{ end }}
+  </ul>
+{{ else }}
+  <p>No issues yet.</p>
+{{ end }}
+{{ with .OutputFormats.Get "rss" }}<p><a href="{{ .RelPermalink }}">RSS feed for this page</a></p>{{ end }}
+{{ end }}

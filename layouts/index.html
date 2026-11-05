@@ -1,0 +1,31 @@
+{{ define "main" }}
+{{ $digests := where site.RegularPages "Section" "digests" }}
+{{ with index $digests 0 }}
+  <p class="eyebrow">Latest issue</p>
+  <article class="digest">
+    <h1><a href="{{ .RelPermalink }}">{{ .Title }}</a></h1>
+    {{ partial "meta.html" . }}
+    {{ .Content }}
+  </article>
+{{ else }}
+  <h1>{{ site.Title }}</h1>
+  <p>{{ site.Params.description }}</p>
+  <p>The first issue hasn't been published yet. Subscribe to the <a href="{{ "feed.xml" | relURL }}">RSS feed</a> to get it when it lands.</p>
+{{ end }}
+
+{{ $earlier := after 1 $digests }}
+{{ with first 8 $earlier }}
+  <section class="recent">
+    <h2>Earlier issues</h2>
+    <ul class="issue-list">
+      {{ range . }}
+        <li>
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          {{ with .Params.summary }}<p>{{ . }}</p>{{ end }}
+        </li>
+      {{ end }}
+    </ul>
+    <p><a href="{{ "digests/" | relURL }}">Full archive →</a></p>
+  </section>
+{{ end }}
+{{ end }}

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="{{ site.LanguageCode | default "en" }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
+  <meta name="description" content="{{ with .Summary }}{{ . | plainify | truncate 160 }}{{ else }}{{ site.Params.description }}{{ end }}">
+  <link rel="stylesheet" href="{{ "css/site.css" | relURL }}">
+  <link rel="alternate" type="application/rss+xml" title="{{ site.Title }}" href="{{ "feed.xml" | absURL }}">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☁️</text></svg>">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="{{ "/" | relURL }}">☁️ {{ site.Title }}</a>
+      <nav>
+        {{ range site.Menus.main }}<a href="{{ .URL | relURL }}">{{ .Name }}</a>{{ end }}
+      </nav>
+    </div>
+  </header>
+  <main class="wrap">
+    {{ block "main" . }}{{ end }}
+  </main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>{{ site.Params.description }} Compiled by Claude from public sources; check the linked originals before relying on any detail.</p>
+      <p><a href="{{ "feed.xml" | absURL }}">Subscribe via RSS</a></p>
+    </div>
+  </footer>
+</body>
+</html>

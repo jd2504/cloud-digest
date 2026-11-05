@@ -1,0 +1,25 @@
+{
+  "hosting": {
+    "public": "public",
+    "cleanUrls": true,
+    "trailingSlash": true,
+    "ignore": ["firebase.json", "**/.*"],
+    "headers": [
+      {
+        "source": "**/feed.xml",
+        "headers": [
+          { "key": "Content-Type", "value": "application/rss+xml; charset=utf-8" },
+          { "key": "Cache-Control", "value": "public, max-age=600" }
+        ]
+      },
+      {
+        "source": "**/*.html",
+        "headers": [{ "key": "Cache-Control", "value": "public, max-age=600" }]
+      },
+      {
+        "source": "/css/**",
+        "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }]
+      }
+    ]
+  }
+}
