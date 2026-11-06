@@ -2,7 +2,7 @@
 title: "About"
 ---
 
-The Cloud Digest is a twice-weekly briefing published Monday and Thursday mornings (US Eastern). Each issue has three parts:
+**eventually consistent** is a twice-weekly briefing published Monday and Thursday mornings (US Eastern). Each issue has three parts:
 
 - **Industry news**: announcements, pricing changes, earnings, outages, regulation, AI infrastructure and cloud-native releases from AWS, Azure, Google Cloud and the wider market.
 - **Architecture & design patterns**: new papers and engineering write-ups on distributed systems, serverless, multi-cloud, platform engineering, resilience, FinOps, cloud security and architectures for AI workloads, includes notes on where it applies.
