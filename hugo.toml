@@ -1,7 +1,7 @@
 # The deploy workflow overrides baseURL with the SITE_URL repository variable.
 baseURL = "https://example.web.app/"
 languageCode = "en-us"
-title = "Cloud Digest"
+title = "eventually consistent"
 enableRobotsTXT = true
 # Publish an issue as soon as it's committed, even if its timestamp is a few
 # hours ahead of the build server's clock.
