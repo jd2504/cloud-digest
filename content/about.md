@@ -8,8 +8,6 @@ The Cloud Digest is a twice-weekly briefing published Monday and Thursday mornin
 - **Architecture & design patterns**: new papers and engineering write-ups on distributed systems, serverless, multi-cloud, platform engineering, resilience, FinOps, cloud security and architectures for AI workloads, includes notes on where it applies.
 - **Takeaway**: the main theme across the issue.
 
-Issues compiled from public sources and linked to originals. Check sources before relying on any detail.
-
-Published for Choreograph Consulting Cloud & AI Architecture & Engineering team by Joel Deerwester.
+Published for [Choreograph Consulting](https://www.choreograph.com/) Cloud & AI Architecture & Engineering team by joel deerwester. Issues compiled from public sources and linked to originals.
 
 Subscribe with any feed reader at [/feed.xml](/feed.xml), or follow a single topic with a tag feed, such as `/tags/kubernetes/feed.xml`.
