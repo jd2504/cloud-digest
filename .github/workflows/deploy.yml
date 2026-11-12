@@ -25,6 +25,9 @@ jobs:
           extended: true
 
       - name: Build site
+        env:
+          # Google Analytics 4 measurement ID (G-XXXXXXXXXX). Leave the variable unset to disable tracking.
+          HUGO_SERVICES_GOOGLEANALYTICS_ID: ${{ vars.GA_MEASUREMENT_ID }}
         run: hugo --minify --baseURL "${{ vars.SITE_URL }}"
 
       - name: Deploy to Firebase Hosting
