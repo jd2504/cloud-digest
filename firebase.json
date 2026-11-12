@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "wppcloudai",
     "public": "public",
     "cleanUrls": true,
     "trailingSlash": true,
