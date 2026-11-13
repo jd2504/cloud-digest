@@ -5,6 +5,11 @@
     "cleanUrls": true,
     "trailingSlash": true,
     "ignore": ["firebase.json", "**/.*"],
+    "redirects": [
+      { "source": "/digests/feed.xml", "destination": "/cloud/feed.xml", "type": 301 },
+      { "source": "/digests", "destination": "/cloud/", "type": 301 },
+      { "source": "/digests/:path*", "destination": "/cloud/:path*", "type": 301 }
+    ],
     "headers": [
       {
         "source": "**/feed.xml",

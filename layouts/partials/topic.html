@@ -1,0 +1,4 @@
+{{- /* Topic label for an issue page, e.g. "Cloud" or "AI", taken from its section's _index.md. */ -}}
+{{- with site.GetPage .Section -}}
+  <a class="topic topic-{{ .Section }}" href="{{ .RelPermalink }}">{{ .Params.label | default .Title }}</a>
+{{- end -}}

@@ -38,7 +38,7 @@ a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset:
 .site-header nav a { color: var(--muted); text-decoration: none; }
 .site-header nav a:hover { color: var(--accent); }
 
-main { padding-top: 2rem; padding-bottom: 3rem; }
+main.wrap { padding-top: 2rem; padding-bottom: 3rem; }
 h1 { font-size: 1.85rem; line-height: 1.25; margin: 0 0 .5rem; }
 h1 a { color: inherit; text-decoration: none; }
 h2 { font-size: 1.3rem; margin: 2.25rem 0 .75rem; padding-top: 1rem; border-top: 1px solid var(--rule); }
@@ -65,3 +65,17 @@ code { font-size: .9em; background: var(--chip); padding: .1em .3em; border-radi
 
 .site-footer { border-top: 1px solid var(--rule); color: var(--muted); font-size: .85rem; }
 .site-footer .wrap { padding-top: 1.25rem; padding-bottom: 2rem; }
+
+/* Topics: a small label on each issue, and one "latest" card per topic on the home page. */
+.brand .mark { color: var(--accent); }
+.topic {
+  display: inline-block; border: 1px solid var(--rule); color: var(--muted); text-decoration: none;
+  border-radius: 4px; padding: 0 .4rem; margin-right: .35rem; font-size: .75rem;
+  text-transform: uppercase; letter-spacing: .06em; vertical-align: .1em;
+}
+.topic:hover { color: var(--accent); border-color: var(--accent); }
+.latest-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1rem; margin: 0 0 2.5rem; }
+.topic-card { border: 1px solid var(--rule); border-radius: 8px; padding: .9rem 1rem; }
+.topic-card .eyebrow a { color: inherit; text-decoration: none; }
+.topic-card .card-title { font-weight: 600; }
+.topic-card p:last-child { margin: .35rem 0 0; color: var(--muted); font-size: .92rem; }

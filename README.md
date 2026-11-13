@@ -1,9 +1,17 @@
-# Cloud Digest
+# eventually consistent
 
-A twice-weekly briefing on cloud computing industry news and research in cloud architecture and design patterns. Issues are written by a Claude scheduled task (Mondays and Thursdays, 7:35 AM US Eastern), committed here as Markdown, built with [Hugo](https://gohugo.io/) and deployed to Firebase Hosting by GitHub Actions.
+Briefings for cloud and AI architects and engineers, in two topics:
 
-- Site: latest issue on the home page, archive at `/digests/`, topics at `/tags/`
-- Feeds: `/feed.xml` (all issues, full text), `/tags/<tag>/feed.xml` (one topic)
+| Topic | Schedule (US Eastern, mornings) | Content folder | Archive | Feed |
+|---|---|---|---|---|
+| Cloud Digest | Mondays and Thursdays | `content/cloud/` | `/cloud/` | `/cloud/feed.xml` |
+| AI Digest | Tuesdays and Fridays | `content/ai/` | `/ai/` | `/ai/feed.xml` |
+
+Issues are written by Claude scheduled tasks, one per topic, committed here as Markdown, built with [Hugo](https://gohugo.io/) and deployed to Firebase Hosting by GitHub Actions.
+
+- Site: the newest issue from either topic on the home page, with a card for each topic's latest issue; topic archives at `/cloud/` and `/ai/`; tags at `/tags/`
+- Feeds: `/feed.xml` (both topics, full text), `/cloud/feed.xml` and `/ai/feed.xml` (one topic), `/tags/<tag>/feed.xml` (one tag, both topics)
+- Old `/digests/` URLs, including `/digests/feed.xml`, redirect to `/cloud/` (see `firebase.json`)
 
 ## One-time setup
 
@@ -20,24 +28,30 @@ Custom domain: Firebase console → Hosting → Add custom domain, then update `
 
 ## Issue format
 
-Each issue is one file at `content/digests/YYYY-MM-DD.md`:
+Each issue is one file in its topic's folder, named by date: `content/cloud/YYYY-MM-DD.md` or `content/ai/YYYY-MM-DD.md`. The folder decides the topic; no extra front matter is needed.
 
 ```markdown
 ---
-title: "Cloud Digest: Monday, November 9, 2026"
-date: 2026-11-09T07:35:00-05:00
-tags: ["aws", "kubernetes", "finops"]
+title: "Cloud Digest: Monday, November 16, 2026"   # or "AI Digest: Tuesday, November 17, 2026"
+date: 2026-11-16T07:35:00-05:00
+tags: [aws, kubernetes, finops]
 summary: "One sentence naming the issue's main theme."
 ---
 
+## Provider announcements
+
+### AWS
+
+**Headline naming the product.** Status, availability and pricing, and why it matters. ([AWS](https://example.com))
+
 ## Industry news
 
-**Headline in one line.** What happened and why it matters. [Source](https://example.com)
+**Headline in one line.** What happened and why it matters. ([Outlet](https://example.com))
 
 ## Architecture & design patterns
 
 ### Title of paper or post
-*Source* — plain-language summary. **When to use it:** one line.
+*Source*: plain-language summary. **When to use it:** one line.
 
 ## Takeaway
 
@@ -45,10 +59,16 @@ One short paragraph.
 
 ## Sources
 
-- [Title](https://example.com)
+- [Title — Outlet](https://example.com)
 ```
 
-Tags are lowercase and hyphenated. Prefer this set so tag pages stay useful: `aws`, `azure`, `google-cloud`, `oracle`, `ibm`, `alibaba`, `gpu-cloud`, `ai-infrastructure`, `kubernetes`, `cloud-native`, `serverless`, `event-driven`, `microservices`, `distributed-systems`, `multi-cloud`, `platform-engineering`, `resilience`, `finops`, `security`, `outages`, `regulation`, `earnings`, `m-and-a`, `data-centers`, `research`.
+Each topic's sections, sources and tag set are defined in its brief (kept in the Claude project, and copied into its scheduled task). Tags are lowercase and hyphenated and shared across topics, so a tag such as `ai-infrastructure` or `regulation` lists issues from both.
+
+## Adding a topic
+
+1. Create `content/<slug>/_index.md` with `title`, `label` (the short topic label shown on issues), `schedule` and `description`.
+2. Add the slug to `mainSections` in `hugo.toml` and a menu entry.
+3. Add a scheduled task that writes issues to `content/<slug>/`.
 
 ## Local preview
 

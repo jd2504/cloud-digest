@@ -1,6 +1,25 @@
 {{ define "main" }}
-{{ $digests := where site.RegularPages "Section" "digests" }}
-{{ with index $digests 0 }}
+{{ $issues := where site.RegularPages "Section" "in" site.Params.mainSections }}
+
+{{- /* One card per topic: its latest issue, or when its first issue is due. */}}
+<section class="latest-strip" aria-label="Latest issue in each topic">
+  {{ range site.Params.mainSections }}
+    {{ with site.GetPage . }}
+      {{ $section := . }}
+      <div class="topic-card">
+        <p class="eyebrow"><a href="{{ .RelPermalink }}">{{ .Title }}</a>{{ with .Params.schedule }} · {{ . }}{{ end }}</p>
+        {{ with index (where $issues "Section" $section.Section) 0 }}
+          <a class="card-title" href="{{ .RelPermalink }}">{{ .Date.Format "Monday, January 2" }}</a>
+          {{ with .Params.summary }}<p>{{ . }}</p>{{ end }}
+        {{ else }}
+          <p>The first issue is on its way. Subscribe to the {{ with $section.OutputFormats.Get "rss" }}<a href="{{ .RelPermalink }}">{{ $section.Title }} feed</a>{{ end }} to get it when it lands.</p>
+        {{ end }}
+      </div>
+    {{ end }}
+  {{ end }}
+</section>
+
+{{ with index $issues 0 }}
   <p class="eyebrow">Latest issue</p>
   <article class="digest">
     <h1><a href="{{ .RelPermalink }}">{{ .Title }}</a></h1>
@@ -13,19 +32,21 @@
   <p>The first issue hasn't been published yet. Subscribe to the <a href="{{ "feed.xml" | relURL }}">RSS feed</a> to get it when it lands.</p>
 {{ end }}
 
-{{ $earlier := after 1 $digests }}
+{{ $earlier := after 1 $issues }}
 {{ with first 8 $earlier }}
   <section class="recent">
     <h2>Earlier issues</h2>
     <ul class="issue-list">
       {{ range . }}
         <li>
-          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          {{ partial "topic.html" . }} <a href="{{ .RelPermalink }}">{{ .Title }}</a>
           {{ with .Params.summary }}<p>{{ . }}</p>{{ end }}
         </li>
       {{ end }}
     </ul>
-    <p><a href="{{ "digests/" | relURL }}">Full archive →</a></p>
+    <p>
+      {{ range $i, $s := site.Params.mainSections }}{{ with site.GetPage $s }}{{ if $i }} · {{ end }}<a href="{{ .RelPermalink }}">{{ .Title }} archive →</a>{{ end }}{{ end }}
+    </p>
   </section>
 {{ end }}
 {{ end }}

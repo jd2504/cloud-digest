@@ -1,4 +1,5 @@
 {{ define "main" }}
+{{ $mixed := eq .Kind "term" }}{{/* Tag pages list issues from every topic, so label each one. */}}
 <h1>{{ if eq .Kind "term" }}Tagged “{{ .Title }}”{{ else }}{{ .Title }}{{ end }}</h1>
 {{ .Content }}
 {{ range .Pages.GroupByDate "January 2006" }}
@@ -6,7 +7,7 @@
   <ul class="issue-list">
     {{ range .Pages }}
       <li>
-        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        {{ if $mixed }}{{ partial "topic.html" . }} {{ end }}<a href="{{ .RelPermalink }}">{{ .Title }}</a>
         {{ with .Params.summary }}<p>{{ . }}</p>{{ end }}
       </li>
     {{ end }}

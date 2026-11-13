@@ -1,4 +1,5 @@
 <p class="meta">
+  {{ partial "topic.html" . }}
   <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Monday, January 2, 2006" }}</time>
   {{ with .GetTerms "tags" }}
     · {{ range . }}<a class="tag" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}

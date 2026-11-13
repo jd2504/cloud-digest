@@ -1,10 +1,11 @@
 {{ define "main" }}
+{{ $isIssue := in site.Params.mainSections .Section }}
 <article class="digest">
   <h1>{{ .Title }}</h1>
-  {{ if eq .Section "digests" }}{{ partial "meta.html" . }}{{ end }}
+  {{ if $isIssue }}{{ partial "meta.html" . }}{{ end }}
   {{ .Content }}
 </article>
-{{ if eq .Section "digests" }}
+{{ if $isIssue }}
 <nav class="pager">
   {{ with .NextInSection }}<a href="{{ .RelPermalink }}">← Newer: {{ .Date.Format "Jan 2" }}</a>{{ end }}
   {{ with .PrevInSection }}<a href="{{ .RelPermalink }}">Older: {{ .Date.Format "Jan 2" }} →</a>{{ end }}

@@ -1,5 +1,6 @@
-{{- $pages := where site.RegularPages "Section" "digests" -}}
-{{- if not .IsHome }}{{ $pages = where .RegularPages "Section" "digests" }}{{ end -}}
+{{- /* The home feed carries every topic; a section feed carries one topic; a tag feed carries every issue with that tag. */ -}}
+{{- $pages := where site.RegularPages "Section" "in" site.Params.mainSections -}}
+{{- if not .IsHome }}{{ $pages = where .RegularPages "Section" "in" site.Params.mainSections }}{{ end -}}
 {{- $limit := site.Config.Services.RSS.Limit -}}
 {{- if ge $limit 1 }}{{ $pages = first $limit $pages }}{{ end -}}
 {{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
@@ -7,7 +8,7 @@
   <channel>
     <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
     <link>{{ .Permalink }}</link>
-    <description>{{ site.Params.description }}</description>
+    <description>{{ if and (eq .Kind "section") .Description }}{{ .Description }}{{ else }}{{ site.Params.description }}{{ end }}</description>
     <language>{{ site.LanguageCode }}</language>
     {{ with (index $pages 0) }}<lastBuildDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</lastBuildDate>{{ end }}
     {{ with .OutputFormats.Get "RSS" }}{{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType | safeHTML }}{{ end }}

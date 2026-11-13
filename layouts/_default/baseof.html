@@ -6,8 +6,12 @@
   <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
   <meta name="description" content="{{ with .Summary }}{{ . | plainify | truncate 160 }}{{ else }}{{ site.Params.description }}{{ end }}">
   <link rel="stylesheet" href="{{ "css/site.css" | relURL }}">
-  <link rel="alternate" type="application/rss+xml" title="{{ site.Title }}" href="{{ "feed.xml" | absURL }}">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☁️</text></svg>">
+  <link rel="alternate" type="application/rss+xml" title="{{ site.Title }} (all topics)" href="{{ "feed.xml" | absURL }}">
+  {{- /* On a topic's archive or issue pages, also advertise that topic's own feed. */}}
+  {{ if in site.Params.mainSections .Section }}{{ with site.GetPage .Section }}{{ $topic := . }}{{ with .OutputFormats.Get "rss" }}
+  <link rel="alternate" type="application/rss+xml" title="{{ $topic.Title }} · {{ site.Title }}" href="{{ .Permalink }}">
+  {{ end }}{{ end }}{{ end }}
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.85em' font-size='90' font-family='system-ui,sans-serif'>≈</text></svg>">
   {{- /* Google Analytics: renders only in production builds and only when an ID is set
          (GA_MEASUREMENT_ID repository variable, passed in by the deploy workflow). */}}
   {{ partial "google_analytics.html" . }}
@@ -15,7 +19,7 @@
 <body>
   <header class="site-header">
     <div class="wrap">
-      <a class="brand" href="{{ "/" | relURL }}">☁️ {{ site.Title }}</a>
+      <a class="brand" href="{{ "/" | relURL }}"><span class="mark" aria-hidden="true">≈</span> {{ site.Title }}</a>
       <nav>
         {{ range site.Menus.main }}<a href="{{ .URL | relURL }}">{{ .Name }}</a>{{ end }}
       </nav>
@@ -27,7 +31,7 @@
   <footer class="site-footer">
     <div class="wrap">
       <p>{{ site.Params.description }} Compiled by Claude from public sources; check the linked originals before relying on any detail.</p>
-      <p><a href="{{ "feed.xml" | absURL }}">Subscribe via RSS</a></p>
+      <p>Subscribe via RSS: <a href="{{ "feed.xml" | absURL }}">all topics</a>{{ range site.Params.mainSections }}{{ with site.GetPage . }}{{ $topic := . }}{{ with .OutputFormats.Get "rss" }} · <a href="{{ .Permalink }}">{{ $topic.Title }}</a>{{ end }}{{ end }}{{ end }}</p>
     </div>
   </footer>
 </body>

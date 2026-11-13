@@ -8,7 +8,10 @@ enableRobotsTXT = true
 buildFuture = true
 
 [params]
-  description = "Twice-weekly briefing on cloud computing news and research in cloud architecture and design patterns."
+  description = "Briefings on cloud computing and AI for architects and engineers: a Cloud Digest on Mondays and Thursdays, an AI Digest on Tuesdays and Fridays."
+  # Topic sections, in the order they appear in the menu and on the home page.
+  # Each one is a folder under content/ with its own archive page and feed.
+  mainSections = ["cloud", "ai"]
 
 [taxonomies]
   tag = "tags"
@@ -16,7 +19,8 @@ buildFuture = true
 [services.rss]
   limit = 30
 
-# Publish the feed as /feed.xml (and /digests/feed.xml, /tags/<tag>/feed.xml)
+# Publish feeds as /feed.xml (all topics), /cloud/feed.xml and /ai/feed.xml
+# (one topic), and /tags/<tag>/feed.xml (one tag)
 [outputFormats.RSS]
   baseName = "feed"
 
@@ -35,18 +39,22 @@ buildFuture = true
     url = "/"
     weight = 1
   [[menus.main]]
-    name = "Archive"
-    url = "/digests/"
+    name = "Cloud"
+    url = "/cloud/"
     weight = 2
+  [[menus.main]]
+    name = "AI"
+    url = "/ai/"
+    weight = 3
   [[menus.main]]
     name = "Tags"
     url = "/tags/"
-    weight = 3
+    weight = 4
   [[menus.main]]
     name = "About"
     url = "/about/"
-    weight = 4
+    weight = 5
   [[menus.main]]
     name = "RSS"
     url = "/feed.xml"
-    weight = 5
+    weight = 6
